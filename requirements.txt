@@ -5,5 +5,5 @@ graphene
 graphene-sqlalchemy
 graphql-core
 graphql-relay
-SQLAlchemy
+flask-sqlalchemy
 
