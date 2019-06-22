@@ -37,8 +37,8 @@ class createUser(graphene.Mutation):
 	user = graphene.Field(Users)
 
 	@classmethod
-	def mutate(cls, info, name, email, username):
-		user = UserModel(name=name, email=email, username=username)
+	def mutate(cls, info, args):
+		user = UserModel(name=args.get('name'), email=args.get('email'), username=args.get('username'))
 		db_session.add(user)
 		db_session.commit()
 		ok = True
@@ -53,8 +53,10 @@ class changeUsername(graphene.Mutation):
 	user = graphene.Field(Users)
 
 	@classmethod
-	def mutate(cls, info, email, username):
+	def mutate(cls, info, args):
 		query = Users.get_query(context)
+		email = args.get('email')
+		username = args.get('username')
 		user = query.filter(UserModel.email == email).first()
 		user.username = username
 		db_session.commit()
