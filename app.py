@@ -37,7 +37,7 @@ class createUser(graphene.Mutation):
 	user = graphene.Field(Users)
 
 	def mutate(cls, info, **kwargs):
-		user = UserModel(name=kwargs.get('name'), email=kwargs.get('email'), username=kwargs.get('username'))
+		user = User(name=kwargs.get('name'), email=kwargs.get('email'), username=kwargs.get('username'))
 		db_session.add(user)
 		db_session.commit()
 		ok = True
@@ -55,7 +55,7 @@ class changeUsername(graphene.Mutation):
 		query = Users.get_query(context)
 		email = kwargs.get('email')
 		username = kwargs.get('username')
-		user = query.filter(UserModel.email == email).first()
+		user = query.filter(User.email == email).first()
 		user.username = username
 		db_session.commit()
 		ok = True
@@ -71,7 +71,7 @@ class Query(graphene.ObjectType):
 	def resolve_find_user(self, info, **kwargs):
 		query = Users.get_query(context)
 		username = kwargs.get('username')
-		return query.filter(UserModel.username == username).first()
+		return query.filter(User.username == username).first()
 
 class MyMutations(graphene.ObjectType):
 	create_user = createUser.Field()
