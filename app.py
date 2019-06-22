@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_graphql import GraphQLView
 from sqlalchemy import create_engine
