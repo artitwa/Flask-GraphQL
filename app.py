@@ -29,7 +29,7 @@ class Users(SQLAlchemyObjectType):
 	    interfaces = (relay.Node, )
 
 class createUser(graphene.Mutation):
-	class Input:
+	class Arguments:
 		name = graphene.String()
 		email = graphene.String()
 		username = graphene.String()
@@ -45,7 +45,7 @@ class createUser(graphene.Mutation):
 		return createUser(user=user, ok=ok)
 
 class changeUsername(graphene.Mutation):
-	class Input:
+	class Arguments:
 		username = graphene.String()
 		email = graphene.String()
 
