@@ -37,7 +37,7 @@ class createUser(graphene.Mutation):
 	user = graphene.Field(Users)
 
 	@classmethod
-	def mutate(cls, info, **kwargs):
+	def mutate(cls, **kwargs):
 		print(kwargs)
 		user = UserModel(name=kwargs.get('name'), email=kwargs.get('email'), username=kwargs.get('username'))
 		db_session.add(user)
@@ -54,7 +54,7 @@ class changeUsername(graphene.Mutation):
 	user = graphene.Field(Users)
 
 	@classmethod
-	def mutate(cls, info, **kwargs):
+	def mutate(cls, **kwargs):
 		print(kwargs)
 		query = Users.get_query(context)
 		email = kwargs.get('email')
@@ -72,7 +72,7 @@ class Query(graphene.ObjectType):
 	find_user = graphene.Field(lambda: Users, username = graphene.String())
 	all_users = SQLAlchemyConnectionField(Users)
 
-	def resolve_find_user(self, info, **kwargs):
+	def resolve_find_user(self, **kwargs):
 		print(kwargs)
 		query = Users.get_query(context)
 		username = kwargs.get('username')
